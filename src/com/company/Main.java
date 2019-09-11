@@ -6,8 +6,6 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 class Main {
@@ -22,12 +20,12 @@ class Main {
 
         //Present the menu.
         System.out.println("--------------------------------\n" +
-                "1. Visa meddelanden\n" +
-                "2. Lägg till meddelande\n" +
-                "3. Uppdatera meddelande\n" +
-                "4. Spara meddelanden till fil\n" +
-                "5. Läs in meddelande från fil\n" +
-                "6. Avsluta\n" +
+                "1. Show messages\n" +
+                "2. Add new message\n" +
+                "3. Update a message\n" +
+                "4. Save messages to file\n" +
+                "5. Read messages from file\n" +
+                "6. Exit\n" +
                 "--------------------------------");
 
         String menuInput = br.readLine(); //User input for the menu.
@@ -61,10 +59,7 @@ class Main {
     }
 
     private static void showMessages() throws IOException, ParseException {
-        msgArr.forEach(Message -> System.out.println("Message: " + Message.message + "\n" +
-                "Author: " + com.company.Message.author + "\n" +
-                "Date: " + com.company.Message.createdAt + "\n" +
-                "Last update: " + Message.updatedAt));
+        msgArr.forEach(Message -> System.out.println(com.company.Message.author + " - " + Message.message+ " - " + com.company.Message.createdAt));
         mainMenu();
     }
 
@@ -95,23 +90,23 @@ class Main {
                     "Last update: " + msgArr.get(i).updatedAt);
         }
         BufferedReader updateReader = new BufferedReader(new InputStreamReader(System.in));
-        int updateIndex = Integer.parseInt(updateReader.readLine());
+            int updateIndex = Integer.parseInt(updateReader.readLine());
+            System.out.println("Old message: " + msgArr.get(updateIndex).message);
+            System.out.println("Enter the new message");
+            msgArr.get(updateIndex).update(updateReader.readLine());
 
-        System.out.println("Old message: " + msgArr.get(updateIndex).message);
-        System.out.println("Enter the new message");
-        msgArr.get(updateIndex).update(updateReader.readLine());
         mainMenu();
     }
 
     private static void saveMessages() throws IOException, ParseException {
         JSONArray list = new JSONArray();
 
-        for (int i = 0; i < msgArr.size(); i++) {
+        for (Message value : msgArr) {
             JSONObject msg = new JSONObject();
-            String message = msgArr.get(i).message;
-            String author = msgArr.get(i).author;
-            String createdAt = msgArr.get(i).createdAt;
-            String updatedAt = msgArr.get(i).updatedAt;
+            String message = value.message;
+            String author = Message.author;
+            String createdAt = Message.createdAt;
+            String updatedAt = value.updatedAt;
 
             msg.put("message", message);
             msg.put("author", author);
@@ -136,19 +131,16 @@ class Main {
         try (Reader reader = new FileReader("messages.json")) {
             JSONArray jsonArr = (JSONArray) parser.parse((reader));
 
-            Iterator<JSONObject> iterator = jsonArr.iterator();
-            while (iterator.hasNext()){
-                System.out.println(iterator.next());
+            for (JSONObject obj : (Iterable<JSONObject>) jsonArr) {
 
-                String message = (String) iterator.next().get("message");
-                String author = (String) iterator.next().get("author");
-                String createdAt = (String) iterator.next().get("createdAt");
-                String updatedAt = (String) iterator.next().get("updatedAt");
+                String message = (String) obj.get("message");
+                String author = (String) obj.get("author");
+                String createdAt = (String) obj.get("createdAt");
+                String updatedAt = (String) obj.get("updatedAt");
 
-                System.out.println(message);
                 Message jMsg = new Message(message);
-                jMsg.author = author;
-                jMsg.createdAt = createdAt;
+                Message.author = author;
+                Message.createdAt = createdAt;
                 jMsg.updatedAt = updatedAt;
 
                 msgArr.add(jMsg);
@@ -184,11 +176,6 @@ class Message {
         this.updatedAt = updatedAt;
     }
 
-
-    @Override
-    public String toString() {
-        return super.toString();
-    }
 
     void update(String updateMsg) {
         this.setMessage(updateMsg);
