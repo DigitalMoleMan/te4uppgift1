@@ -1,14 +1,1 @@
-[
-{
-"message": "nice",
-"author": "wille.pilquist",
-"createdAt": "Wed Sep 11 12:43:07 CEST 2019",
-"updatedAt": "Wed Sep 11 12:43:03 CEST 2019"
-},
-{
-"message": "hello",
-"author": "wille.pilquist",
-"createdAt": "Wed Sep 11 12:43:07 CEST 2019",
-"updatedAt": "Wed Sep 11 12:43:07 CEST 2019"
-}
-]
+[{"createdAt":"Wed Sep 11 14:28:46 CEST 2019","author":"wille.pilquist","message":"hello","updatedAt":"Wed Sep 11 14:28:35 CEST 2019"},{"createdAt":"Wed Sep 11 14:28:46 CEST 2019","author":"wille.pilquist","message":"nice","updatedAt":"Wed Sep 11 14:28:37 CEST 2019"},{"createdAt":"Wed Sep 11 14:28:46 CEST 2019","author":"wille.pilquist","message":"to","updatedAt":"Wed Sep 11 14:28:41 CEST 2019"},{"createdAt":"Wed Sep 11 14:28:46 CEST 2019","author":"wille.pilquist","message":"meet","updatedAt":"Wed Sep 11 14:28:43 CEST 2019"},{"createdAt":"Wed Sep 11 14:28:46 CEST 2019","author":"wille.pilquist","message":"you","updatedAt":"Wed Sep 11 14:28:46 CEST 2019"}]
